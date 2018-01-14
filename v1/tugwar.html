@@ -11,16 +11,12 @@
 <body>
     <div class="container">
         <h3 class="text-center">Tug of war</h3>
-        <div class="row">
+        <div id="game" class="row">
             <div class="col-sm-2 col-lg-4">
                 <button onclick="aGame.move(-1)" class="btn float-sm-right"><=</button>
             </div>
-            <div class="col-sm-8 col-lg-4 d-flex text-center">
-                <div class="cell border border-secondary w-25"></div>
-                <div class="cell border border-secondary w-25"></div>
-                <div class="cell border border-secondary w-25 current">R</div>
-                <div class="cell border border-secondary w-25"></div>
-                <div class="cell border border-secondary w-25"></div>
+            <div id="game-map" class="col-sm-8 col-lg-4 d-flex text-center">
+                <div id="game-cells"></div>
             </div>
             <div class="col-sm-2 col-lg-4">
                 <button onclick="aGame.move(1)" class="btn float-right float-sm-left">=></button>
