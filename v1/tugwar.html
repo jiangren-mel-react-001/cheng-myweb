@@ -13,7 +13,7 @@
         <h3 class="text-center">Tug of war</h3>
         <div class="row">
             <div class="col-sm-2 col-lg-4">
-                <button onclick="onClickLeft()" class="btn float-sm-right"><=</button>
+                <button onclick="aGame.move(-1)" class="btn float-sm-right"><=</button>
             </div>
             <div class="col-sm-8 col-lg-4 d-flex text-center">
                 <div class="cell border border-secondary w-25"></div>
@@ -23,7 +23,7 @@
                 <div class="cell border border-secondary w-25"></div>
             </div>
             <div class="col-sm-2 col-lg-4">
-                <button onclick="onClickRight()" class="btn float-right float-sm-left">=></button>
+                <button onclick="aGame.move(1)" class="btn float-right float-sm-left">=></button>
             </div>
         </div>
     </div>
