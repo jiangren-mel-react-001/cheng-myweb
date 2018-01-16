@@ -1,39 +1,43 @@
 
 
-class Game {
+class Game extends React.Component {
     constructor() {
-        // get data from Ajax
-        this.currentPosition = 5;
-        this.length = 10;
+        super();
+        this.state = {
+            currentPosition: 5,
+            length: 10
+        };
     };
     move(step) {
-        var nextPosition = this.currentPosition + step;
+        var nextPosition = this.state.currentPosition + step;
         if (this.positionAvailable(nextPosition)) {
-            this.currentPosition = nextPosition;
-            this.render();
+            this.setState({...this.state, currentPosition: nextPosition});
         }
     };
     positionAvailable(nextPosition) {
-        return nextPosition >= 0 && nextPosition < this.length;
+        return nextPosition >= 0 && nextPosition < this.state.length;
     };
     render() {
-        let cells = [];
-        for (let i = 0; i < this.length; i++) {
+        let goLeftButton = React.createElement('button', {
+            onClick: () => this.move(-1)
+        }, '<')
+        let cells = [goLeftButton];
+        for (let i = 0; i < this.state.length; i++) {
             let aCell = React.createElement('div', {
-                className: 'cell border border-secondary w-25'
-            }, i === this.currentPosition ? 'R' : '');
+                className: 'cell border border-secondary w-25',
+                key: i
+            }, i === this.state.currentPosition ? 'R' : '');
             cells.push(aCell);
         }
-        let map = React.createElement('div', {
-            id: 'game-map',
-            className: 'col-sm-8 col-lg-4 d-flex text-center'
-        }, cells);
-        ReactDOM.render(
-            map,
-            document.getElementById('game-map')
-        );
+        let goRightButton = React.createElement('button', {
+            onClick: () => this.move(1)
+        }, '>')
+        cells.push(goRightButton);
+        return cells;
     }
 }
 
-let aGame = new Game();
-aGame.render();
+ReactDOM.render(
+    React.createElement(Game),
+    document.getElementById('game-map')
+);
