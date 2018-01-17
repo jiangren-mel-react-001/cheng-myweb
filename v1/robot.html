@@ -28,12 +28,28 @@ function move(current, next) {
 }
 function onClickLeft() {
     var cells = document.querySelectorAll('.cell');
+    var currentCell = null;
+    var nextCell = null;
     cells.forEach(function(aCell) {
         if (aCell.textContent === 'R') {
-            var nextCell = aCell.previousElementSibling;
-            move(aCell, nextCell);
+            currentCell = aCell;
+            nextCell = aCell.previousElementSibling;
         }
-    })
+    });
+    move(currentCell, nextCell);
+
+}
+function onClickRight() {
+    var cells = document.querySelectorAll('.cell');
+    var currentCell = null;
+    var nextCell = null;
+    cells.forEach(function(aCell) {
+        if (aCell.textContent === 'R') {
+            currentCell = aCell;
+            nextCell = aCell.nextElementSibling;
+        }
+    });
+    move(currentCell, nextCell);
 }
     </script>
 </body>
