@@ -11,16 +11,30 @@
     <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-lg-4 d-flex text-center">
-                    <button class="btn float-sm-right"><=</button>
+                    <button onclick="onClickLeft()" class="btn float-sm-right"><=</button>
+                    <div class="cell border border-secondary w-25"></div>
                     <div class="cell border border-secondary w-25"></div>
                     <div class="cell border border-secondary w-25"></div>
                     <div class="cell border border-secondary w-25">R</div>
                     <div class="cell border border-secondary w-25"></div>
-                    <div class="cell border border-secondary w-25"></div>
-                    <button class="btn float-right float-sm-left">=></button>
+                    <button onclick="onClickRight()" class="btn float-right float-sm-left">=></button>
                 </div>
             </div>
     </body>
-    
+    <script>
+function move(current, next) {
+    current.textContent = '';
+    next.textContent = 'R';
+}
+function onClickLeft() {
+    var cells = document.querySelectorAll('.cell');
+    cells.forEach(function(aCell) {
+        if (aCell.textContent === 'R') {
+            var nextCell = aCell.previousElementSibling;
+            move(aCell, nextCell);
+        }
+    })
+}
+    </script>
 </body>
 </html>
