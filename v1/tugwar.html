@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,15 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+    <!-- ReactFire -->
+    <script src="https://cdn.firebase.com/libs/reactfire/1.0.0/reactfire.min.js"></script>
     <title>Tug of war</title>
 </head>
+
 <body>
     <div class="container">
         <h3 class="text-center">Tug of war</h3>
@@ -17,31 +25,45 @@
         </div>
     </div>
     <script type="text/babel">
-
-
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyArM3GbtDFiHps1Yi1rg8vnR3USqHjGWvs",
+    authDomain: "jrmr001-cheng-toyrobot.firebaseapp.com",
+    databaseURL: "https://jrmr001-cheng-toyrobot.firebaseio.com",
+    projectId: "jrmr001-cheng-toyrobot",
+    storageBucket: "jrmr001-cheng-toyrobot.appspot.com",
+    messagingSenderId: "796709615950"
+};
+firebase.initializeApp(config);
 class Game extends React.Component {
     constructor() {
         super();
         this.state = {
-            currentPosition: 5,
+            position: 5,
             length: 10
         };
     };
     move(step) {
-        var nextPosition = this.state.currentPosition + step;
+        var nextPosition = this.state.position + step;
         if (this.positionAvailable(nextPosition)) {
-            this.setState({...this.state, currentPosition: nextPosition});
+            firebase.database().ref('robot/position').set(nextPosition);
         }
     };
     positionAvailable(nextPosition) {
         return nextPosition >= 0 && nextPosition < this.state.length;
     };
+    componentDidMount() {
+        let robotRef = firebase.database().ref('robot');
+        robotRef.on('value', (snapshot) => {
+            this.setState(snapshot.val())
+        });
+    }
     render() {
         let cells = [];
         for (let i = 0; i < this.state.length; i++) {
             let aCell = (
                 <div className='cell border border-secondary w-25' key={i}>
-                    {i === this.state.currentPosition ? 'R' : ''}
+                    {i === this.state.position ? 'R' : ''}
                 </div>
             );
             cells.push(aCell);
@@ -62,4 +84,5 @@ ReactDOM.render(
 );
     </script>
 </body>
+
 </html>
