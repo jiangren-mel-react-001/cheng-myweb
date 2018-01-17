@@ -11,46 +11,44 @@
     <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-lg-4 d-flex text-center">
-                    <button onclick="onClickLeft()" class="btn float-sm-right"><=</button>
+                    <button onclick="aGame.onClickLeft()" class="btn float-sm-right"><=</button>
                     <div class="cell border border-secondary w-25"></div>
                     <div class="cell border border-secondary w-25"></div>
                     <div class="cell border border-secondary w-25"></div>
-                    <div class="cell border border-secondary w-25">R</div>
                     <div class="cell border border-secondary w-25"></div>
-                    <button onclick="onClickRight()" class="btn float-right float-sm-left">=></button>
+                    <div class="cell border border-secondary w-25"></div>
+                    <button onclick="aGame.onClickRight()" class="btn float-right float-sm-left">=></button>
                 </div>
             </div>
     </body>
     <script>
-function move(current, next) {
-    current.textContent = '';
-    next.textContent = 'R';
-}
-function onClickLeft() {
-    var cells = document.querySelectorAll('.cell');
-    var currentCell = null;
-    var nextCell = null;
-    cells.forEach(function(aCell) {
-        if (aCell.textContent === 'R') {
-            currentCell = aCell;
-            nextCell = aCell.previousElementSibling;
+class Robot {
+    constructor() {
+        this.state = {
+            currentPosition: 2,
+            robotIcon: 'O'
         }
-    });
-    move(currentCell, nextCell);
+    }
 
-}
-function onClickRight() {
-    var cells = document.querySelectorAll('.cell');
-    var currentCell = null;
-    var nextCell = null;
-    cells.forEach(function(aCell) {
-        if (aCell.textContent === 'R') {
-            currentCell = aCell;
-            nextCell = aCell.nextElementSibling;
+    move(step) {
+        var nextPostion = this.state.currentPosition + step;
+        var cells = document.getElementsByClassName('cell');
+        for (var i = 0; i < cells.length; i++) {
+            cells[i].innerHTML = '';
         }
-    });
-    move(currentCell, nextCell);
+        cells[nextPostion].innerHTML = this.state.robotIcon;
+        this.state.currentPosition = nextPostion;
+    }
+    onClickLeft() {
+        this.move(-1);
+    }
+    onClickRight() {
+        this.move(1);
+    }
 }
+
+var aGame = new Robot();
+
     </script>
 </body>
 </html>
