@@ -32,7 +32,7 @@ class Robot {
     }
     clean() {
         let cells = document.querySelectorAll('.cell');
-        cells.forEach(function(aCell) {
+        cells.forEach((aCell) => {
             aCell.textContent = this.state.emptyCell;
         });
     }
