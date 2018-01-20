@@ -13,6 +13,7 @@
     <div class="container-fluid">
         <button onclick="aGame.onClickLeft()" class="btn float-sm-right"><=</button>
         <button onclick="aGame.onClickRight()" class="btn float-right float-sm-left">=></button>
+        <button onclick="aGame.onClickStay()" class="btn float-right float-sm-left">||</button>
             <div id="root" class="row"></div>
     </body>
     <script>
@@ -29,7 +30,7 @@ class Robot {
         var nextPostion = this.state.currentPosition + step;
         this.state.currentPosition = nextPostion;
         let root = document.getElementById('root');
-        ReactDOM.render(this.render(), root);
+        ReactDOM.render(this.populateMap(), root);
     }
     onClickLeft() {
         this.move(-1);
@@ -37,7 +38,10 @@ class Robot {
     onClickRight() {
         this.move(1);
     }
-    render() {
+    onClickStay() {
+        this.move(0);
+    }
+    populateMap() {
         let cells = [];
         for (let i = 0; i < this.state.length; i++) {
             let aCell = React.createElement('div', {
