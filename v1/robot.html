@@ -7,13 +7,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <title>Robot</title>
 </head>
 <body>
     <div class="container-fluid">
         <div id="root" class="row"></div>
-    </body>
-    <script>
+    </div>
+</body>
+<script type="text/babel">
+class Cell extends React.Component {
+
+}
 class Robot extends React.Component {
     constructor() {
         super();
@@ -22,15 +27,18 @@ class Robot extends React.Component {
             length: 12,
             robotIcon: '->',
             emptyCell: '*'
-        }
+        };
+        this.onClickLeft = this.onClickLeft.bind(this);
     }
     move(step) {
         this.state.currentPosition = this.state.currentPosition + step;
     }
     onClickLeft() {
+        console.log('click left');
         this.move(-1);
     }
-    onClickRight() {
+    onClickRight(theThis) {
+        console.log(theThis);
         this.move(1);
     }
     onClickStay() {
@@ -39,16 +47,16 @@ class Robot extends React.Component {
     render() {
         let cells = [];
         for (let i = 0; i < this.state.length; i++) {
-            let aCell = React.createElement('div', {
-                className: 'cell border border-secondary'
-            }, i === this.state.currentPosition ? this.state.robotIcon : this.state.emptyCell);
+            let aCell = <div className='cell border border-secondary'>
+                { i === this.state.currentPosition ? this.state.robotIcon : this.state.emptyCell }
+            </div>
             cells.push(aCell);
         }
         let buttonLeft = React.createElement('button', {
-            onClick: this.onClickLeft
+            onClick: this.onClickLeft()
         }, '<--');
         let buttonRight = React.createElement('button', {
-            onClick: this.onClickRight
+            onClick: (e) => this.onClickRight(this)
         }, '-->');
         let buttonStay = React.createElement('button', {
             onClick: this.onClickStay
