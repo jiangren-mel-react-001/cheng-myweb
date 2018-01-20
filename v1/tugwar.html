@@ -35,12 +35,22 @@ var config = {
     messagingSenderId: "796709615950"
 };
 firebase.initializeApp(config);
+class Cell extends React.Component {
+    render() {
+        const { icon } = this.props;
+        return (
+            <div className='cell border border-secondary'>
+                { icon }
+            </div>
+        );
+    }
+}
 class Game extends React.Component {
     constructor() {
         super();
         this.state = {
             position: 5,
-            length: 10
+            length: 77777
         };
     };
     move(step) {
@@ -60,19 +70,23 @@ class Game extends React.Component {
     }
     render() {
         let cells = [];
-        for (let i = 0; i < this.state.length; i++) {
+        for (let i = 0; i < 20; i++) {
             let aCell = (
-                <div className='cell border border-secondary w-25' key={i}>
-                    {i === this.state.position ? 'R' : ''}
-                </div>
+                <Cell icon={ i === this.state.position ? 'R' : '*' } key={ i } />
+            );
+            cells.push(aCell);
+        }
+        for (let i = 22; i < this.state.length; i++) {
+            let aCell = (
+                <Cell icon='0' key={ i } />
             );
             cells.push(aCell);
         }
         return (
-            <div className="col-md-8 col-lg-6 d-flex ml-auto mr-auto">
+            <div className="col-md-8 col-lg-6 d-flex flex-wrap ml-auto mr-auto">
                 <button onClick={ () => this.move(-1) }>Left</button>
-                {cells}
                 <button onClick={ () => this.move(1) }>Right</button>
+                {cells}
             </div>
         );
     }
