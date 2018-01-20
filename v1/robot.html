@@ -11,10 +11,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <button onclick="aGame.onClickLeft()" class="btn float-sm-right"><=</button>
-        <button onclick="aGame.onClickRight()" class="btn float-right float-sm-left">=></button>
-        <button onclick="aGame.onClickStay()" class="btn float-right float-sm-left">||</button>
-            <div id="root" class="row"></div>
+        <div id="root" class="row"></div>
     </body>
     <script>
 class Robot extends React.Component {
@@ -47,10 +44,19 @@ class Robot extends React.Component {
             }, i === this.state.currentPosition ? this.state.robotIcon : this.state.emptyCell);
             cells.push(aCell);
         }
+        let buttonLeft = React.createElement('button', {
+            onClick: this.onClickLeft
+        }, '<--');
+        let buttonRight = React.createElement('button', {
+            onClick: this.onClickRight
+        }, '-->');
+        let buttonStay = React.createElement('button', {
+            onClick: this.onClickStay
+        }, '||');
         let col = React.createElement('div', {
             className: 'd-flex flex-wrap text-center',
             id: 'old-node'
-        }, cells);
+        }, cells, buttonLeft, buttonRight, buttonStay);
         return col;
     }
 }
