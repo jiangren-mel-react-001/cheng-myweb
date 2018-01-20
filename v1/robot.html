@@ -25,12 +25,19 @@ class Robot {
             robotIcon: '->',
             emptyCell: '*'
         }
+        this.oldState = {};
     }
     move(step) {
         var nextPostion = this.state.currentPosition + step;
         this.state.currentPosition = nextPostion;
+        // before rendering
+        if (this.state === this.oldState) {
+            return;
+        }
         let root = document.getElementById('root');
         ReactDOM.render(this.populateMap(), root);
+        // after rendering
+        this.oldState = this.state;
     }
     onClickLeft() {
         this.move(-1);
