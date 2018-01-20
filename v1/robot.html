@@ -29,20 +29,16 @@ class Robot extends React.Component {
             emptyCell: '*'
         };
         this.onClickLeft = this.onClickLeft.bind(this);
+        this.onClickRight = this.onClickRight.bind(this);
     }
     move(step) {
-        this.state.currentPosition = this.state.currentPosition + step;
+        this.setState({ currentPosition: this.state.currentPosition + step });
     }
     onClickLeft() {
-        console.log('click left');
         this.move(-1);
     }
-    onClickRight(theThis) {
-        console.log(theThis);
+    onClickRight() {
         this.move(1);
-    }
-    onClickStay() {
-        this.move(0);
     }
     render() {
         let cells = [];
@@ -52,20 +48,13 @@ class Robot extends React.Component {
             </div>
             cells.push(aCell);
         }
-        let buttonLeft = React.createElement('button', {
-            onClick: this.onClickLeft()
-        }, '<--');
-        let buttonRight = React.createElement('button', {
-            onClick: (e) => this.onClickRight(this)
-        }, '-->');
-        let buttonStay = React.createElement('button', {
-            onClick: this.onClickStay
-        }, '||');
-        let col = React.createElement('div', {
-            className: 'd-flex flex-wrap text-center',
-            id: 'old-node'
-        }, cells, buttonLeft, buttonRight, buttonStay);
-        return col;
+        return (
+            <div className='d-flex flex-wrap text-center'>
+                <button onClick={this.onClickLeft}>Left</button>
+                { cells }
+                <button onClick={this.onClickRight}>Right</button>
+            </div>
+        );
     }
 }
 
