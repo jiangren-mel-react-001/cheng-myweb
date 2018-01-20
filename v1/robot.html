@@ -17,29 +17,18 @@
             <div id="root" class="row"></div>
     </body>
     <script>
-class Robot {
+class Robot extends React.Component {
     constructor() {
+        super();
         this.state = {
             currentPosition: 5,
             length: 12,
             robotIcon: '->',
             emptyCell: '*'
         }
-        this.oldState = {};
     }
     move(step) {
-        var nextPosition = this.state.currentPosition + step;
-        // this.state.currentPosition = nextPostion;
-        this.state = Object.assign(this.state, { currentPosition: nextPosition });
-        // before rendering
-        if (this.state === this.oldState) {
-            return;
-        }
-        let root = document.getElementById('root');
-        ReactDOM.render(this.populateMap(), root);
-        console.log('rendered');
-        // after rendering
-        this.oldState = this.state;
+        this.state.currentPosition = this.state.currentPosition + step;
     }
     onClickLeft() {
         this.move(-1);
@@ -50,7 +39,7 @@ class Robot {
     onClickStay() {
         this.move(0);
     }
-    populateMap() {
+    render() {
         let cells = [];
         for (let i = 0; i < this.state.length; i++) {
             let aCell = React.createElement('div', {
@@ -66,7 +55,10 @@ class Robot {
     }
 }
 
-let aGame = new Robot();
+ReactDOM.render(
+    React.createElement(Robot),
+    document.getElementById('root'))
+
     </script>
 </body>
 </html>
